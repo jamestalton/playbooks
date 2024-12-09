@@ -11,7 +11,7 @@ Before proceeding, ensure you have the following:
 
 | Input | Value
 | ---: | ---
-| Name | Setup Validated Content
+| Name | JTalton / Setup Projects and Job Templates
 | Description | Playbooks for setting up projects and job templates to run the validated content.
 | SCM Type | git
 | SCM URL | https://github.com/jamestalton/playbooks.git
@@ -20,7 +20,7 @@ Before proceeding, ensure you have the following:
 
 | Input | Value
 | ---: | ---
-| Name | Setup Validated Content
+| Name | JTalton / Setup Projects and Job Templates
 | Description | This job template adds projects and job templates to run the validated content.
 | Project | Setup Validated Content
 | Playbook | setup.yml

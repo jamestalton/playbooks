@@ -10,16 +10,16 @@
       - name: "cloud.aws_ops"
 
     projects:
-      - name: "AWS Operations"
+      - name: "JTalton / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
 
     templates:
-      - name: "AWS Operations / Create AWS EC2 Instance"
+      - name: "JTalton / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
-        project: "AWS Validate Content"
+        project: "JTalton / AWS Operations"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
@@ -39,20 +39,12 @@
               required: true
 
   tasks:
-    - name: Show current environment variables
-      debug:
-        var: lookup('env')
-
-    - name: Check if required variables are defined
+    - name: Create labels
       assert:
         that:
           - aap_url is defined
           - aap_username is defined
           - aap_password is defined
-        fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
-        success_msg: "All required variables are defined."
-
-    - name: Create labels
       ansible.controller.label:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
@@ -62,6 +54,11 @@
       loop: "{{ labels }}"
 
     - name: Create projects
+      assert:
+        that:
+          - aap_url is defined
+          - aap_username is defined
+          - aap_password is defined
       ansible.controller.project:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
@@ -75,6 +72,11 @@
       loop: "{{ projects }}"
 
     - name: Create job templates
+      assert:
+        that:
+          - aap_url is defined
+          - aap_username is defined
+          - aap_password is defined
       ansible.controller.job_template:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
