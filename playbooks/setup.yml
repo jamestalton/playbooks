@@ -1,0 +1,21 @@
+---
+- name: Create job templates for playbooks
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Include the controller collection
+      ansible.builtin.include_role:
+        name: ansible.controller
+
+    - name: Create job templates
+      ansible.controller.controller_job_template:
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        organization: "{{ item.organization }}"
+        inventory: "{{ item.inventory }}"
+        project: "{{ item.project }}"
+        playbook: "{{ item.playbook }}"
+        credential: "{{ item.credential }}"
+        job_type: "run"
+        state: "present"
+      loop: "{{ templates }}"

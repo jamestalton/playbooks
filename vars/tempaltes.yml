@@ -1,0 +1,16 @@
+templates:
+  - name: "Job Template 1"
+    description: "Runs the job1 playbook"
+    organization: "Default"
+    inventory: "Demo Inventory"
+    project: "My Project"
+    playbook: "job1.yml"
+    credential: "My Credential"
+
+  - name: "Job Template 2"
+    description: "Runs the job2 playbook"
+    organization: "Default"
+    inventory: "Demo Inventory"
+    project: "My Project"
+    playbook: "job2.yml"
+    credential: "My Credential"
