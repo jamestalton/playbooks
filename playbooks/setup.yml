@@ -42,6 +42,10 @@
               required: true
 
   tasks:
+    - name: Show current environment variables
+      debug:
+        var: lookup('env')
+
     - name: Check if required variables are defined
       assert:
         that:
