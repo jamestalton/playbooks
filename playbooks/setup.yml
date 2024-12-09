@@ -2,6 +2,22 @@
 - name: Create job templates for playbooks
   hosts: localhost
   gather_facts: false
+  vars:
+    templates:
+      - name: "Template 1"
+        description: "Description for Template 1"
+        organization: "Org 1"
+        inventory: "Inventory 1"
+        project: "Project 1"
+        playbook: "playbook1.yml"
+        credential: "Credential 1"
+      - name: "Template 2"
+        description: "Description for Template 2"
+        organization: "Org 2"
+        inventory: "Inventory 2"
+        project: "Project 2"
+        playbook: "playbook2.yml"
+        credential: "Credential 2"
   tasks:
     - name: Create job templates
       ansible.controller.job_template:
