@@ -12,15 +12,13 @@
     projects:
       - name: "AWS Validate Content"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
-        organization: "Default"
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
 
     templates:
       - name: "AWS Create EC2 Instance"
-        description: "Description for Template 1"
-        organization: "Default"
+        description: "This job template creates an AWS EC2 instance and associated networking resources."
         project: "AWS Validate Content"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,instance"
@@ -29,8 +27,7 @@
           name: "AWS Create EC2 Instance"
           description: "Description for Survey 1"
           spec:
-            - question_name: "Select the instance type"
-              # question_description: "Select the instance type"
+            - question_name: "Select the EC2 instance type"
               type: "multiplechoice"
               variable: "instance_type"
               choices:
@@ -52,6 +49,7 @@
           - aap_url is defined
           - aap_username is defined
           - aap_password is defined
+          - aap_organization
         fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
         success_msg: "All required variables are defined."
 
@@ -61,7 +59,7 @@
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
-        organization: "Default"
+        organization: "{{ aap_organization || 'Default' }}"
       loop: "{{ labels }}"
 
     - name: Create projects
@@ -71,7 +69,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
-        organization: "{{ item.organization }}"
+        organization: "{{ aap_organization || 'Default' }}"
         scm_type: "{{ item.scm_type }}"
         scm_url: "{{ item.scm_url }}"
         state: "present"
@@ -84,7 +82,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
-        organization: "{{ item.organization }}"
+        organization: "{{ aap_organization || 'Default' }}"
         project: "{{ item.project }}"
         playbook: "{{ item.playbook }}"
         job_type: "run"
