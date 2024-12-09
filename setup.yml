@@ -23,21 +23,7 @@
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
-        survey_file: "https://github.com/redhat-cop/cloud.aws_ops/blob/main/extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
-        # survey_spec:
-        #   name: "AWS Create EC2 Instance"
-        #   description: "Description for Survey 1"
-        #   spec:
-        #     - question_name: "Select the EC2 instance type"
-        #       type: "multiplechoice"
-        #       variable: "instance_type"
-        #       choices:
-        #         - "t2.micro"
-        #         - "t2.small"
-        #         - "t2.medium"
-        #         - "t2.large"
-        #       default: "t2.micro"
-        #       required: true
+        survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
 
   tasks:
     - name: Check if required variables are defined
@@ -71,18 +57,6 @@
         state: "present"
       loop: "{{ projects }}"
 
-    - name: Download the survey file from GitHub
-      uri:
-        url: "{{ item.survey_url }}"
-        dest: "/tmp/create_ec2_instance.yml"
-      register: download_survey
-      when: item.survey_enabled | default(false)
-
-    - name: Load survey spec from file
-      set_fact:
-        survey_spec: "{{ lookup('file', '/tmp/create_ec2_instance.yml') | from_yaml }}"
-      when: download_survey is success
-
     - name: Create job templates
       ansible.controller.job_template:
         controller_host: "{{ aap_url }}"
@@ -96,7 +70,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ survey_spec }}"
+        survey_spec: "{{ lookup('file', item.survey_file) | from_yaml }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
