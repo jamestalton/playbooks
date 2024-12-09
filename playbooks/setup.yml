@@ -17,8 +17,6 @@
         organization: "Default"
         project: "AWS Validate Conten"
         playbook: "extensions/patternf/configure_ec2/playbooks/create_ec2_instance.yml"
-        ask_inventory_on_launch: true
-        ask_credential_on_launch: true
 
   tasks:
     - name: Create projects
@@ -39,8 +37,6 @@
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
-        headers:
-          Authorization: "Bearer {{ aap_token }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
@@ -50,4 +46,7 @@
         credential: "{{ item.credential }}"
         job_type: "run"
         state: "present"
+        ask_inventory_on_launch: true
+        ask_credential_on_launch: true
+
       loop: "{{ templates }}"
