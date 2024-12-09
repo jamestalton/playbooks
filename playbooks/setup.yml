@@ -4,7 +4,7 @@
   gather_facts: false
   tasks:
     - name: Create job templates
-      job_template:
+      awx.awx.awx_job_template:
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
