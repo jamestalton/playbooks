@@ -40,10 +40,8 @@
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
-        inventory: "{{ item.inventory }}"
         project: "{{ item.project }}"
         playbook: "{{ item.playbook }}"
-        credential: "{{ item.credential }}"
         job_type: "run"
         state: "present"
         ask_inventory_on_launch: true
