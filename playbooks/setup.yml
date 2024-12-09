@@ -10,6 +10,7 @@
         organization: "Default"
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
+        scm_update_on_launch: true
 
     templates:
       - name: "AWS Create EC2 Instance"
