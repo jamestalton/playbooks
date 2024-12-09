@@ -7,21 +7,21 @@
     labels:
       - name: "aws"
       - name: "ec2"
-      - name: "instance"
+      - name: "cloud.aws_ops"
 
     projects:
-      - name: "AWS Validate Content"
+      - name: "AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
 
     templates:
-      - name: "AWS Create EC2 Instance"
+      - name: "AWS Operations / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
         project: "AWS Validate Content"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
-        labels: "aws,ec2,instance"
+        labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
         survey_spec:
           name: "AWS Create EC2 Instance"
