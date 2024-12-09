@@ -23,9 +23,9 @@
   tasks:
     - name: Create projects
       ansible.controller.project:
-        url: "{{ aap_url }}/api/controller/v2/projects/"
-        headers:
-          Authorization: "Bearer {{ aap_token }}"
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
@@ -36,7 +36,9 @@
 
     - name: Create job templates
       ansible.controller.job_template:
-        url: "{{ aap_url }}/api/controller/v2/job_templates/"
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
         headers:
           Authorization: "Bearer {{ aap_token }}"
         name: "{{ item.name }}"
