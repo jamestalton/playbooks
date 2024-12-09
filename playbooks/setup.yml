@@ -17,45 +17,48 @@
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
 
-    templates:
-      - name: "AWS Create EC2 Instance"
-        description: "Description for Template 1"
-        organization: "Default"
-        project: "AWS Validate Content"
-        playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
-        labels: "aws,ec2,instance"
-        survey_enabled: true
-        survey_spec:
-          name: "AWS Create EC2 Instance"
-          description: "Description for Survey 1"
-          spec:
-            - question_name: "instance_type"
-              question_description: "Select the instance type"
-              question_type: "multiplechoice"
-              required: true
-              min: 1
-              max: 1
-              choices:
-                - name: "t2.micro"
-                  description: "t2.micro"
-                - name: "t2.small"
-                  description: "t2.small"
-                - name: "t2.medium"
-                  description: "t2.medium"
-                - name: "t2.large"
-                  description: "t2.large"
-            - question_name: "instance_count"
-              question_description: "Enter the number of instances"
-              question_type: "integer"
-              required: true
-              min: 1
-              max: 10
-            - question_name: "instance_name"
-              question_description: "Enter the instance name"
-              question_type: "text"
-              required: true
-              min: 1
-              max: 50
+  templates:
+    - name: "AWS Create EC2 Instance"
+      description: "Description for Template 1"
+      organization: "Default"
+      project: "AWS Validate Content"
+      playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
+      labels: "aws,ec2,instance"
+      survey_enabled: true
+      survey_spec:
+        name: "AWS Create EC2 Instance"
+        description: "Description for Survey 1"
+        spec:
+          - question_name: "instance_type"
+            question_description: "Select the instance type"
+            question_type: "multiplechoice"
+            type: "multiplechoice"
+            required: true
+            min: 1
+            max: 1
+            choices:
+              - name: "t2.micro"
+                description: "t2.micro"
+              - name: "t2.small"
+                description: "t2.small"
+              - name: "t2.medium"
+                description: "t2.medium"
+              - name: "t2.large"
+                description: "t2.large"
+          - question_name: "instance_count"
+            question_description: "Enter the number of instances"
+            question_type: "integer"
+            type: "integer"
+            required: true
+            min: 1
+            max: 10
+          - question_name: "instance_name"
+            question_description: "Enter the instance name"
+            question_type: "text"
+            type: "text"
+            required: true
+            min: 1
+            max: 50
 
   tasks:
     - name: Check if required variables are defined
