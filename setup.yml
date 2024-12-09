@@ -3,27 +3,8 @@
   hosts: localhost
   gather_facts: false
 
-  vars:
-    labels:
-      - name: "aws"
-      - name: "ec2"
-      - name: "cloud.aws_ops"
-
-    projects:
-      - name: "JTalton / AWS Operations"
-        description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
-        scm_type: "git"
-        scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
-        scm_update_on_launch: true
-
-    templates:
-      - name: "JTalton / Create AWS EC2 Instance"
-        description: "This job template creates an AWS EC2 instance and associated networking resources."
-        project: "JTalton / AWS Operations"
-        playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
-        labels: "aws,ec2,cloud.aws_ops"
-        survey_enabled: true
-        survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
+  vars_files:
+    - "{{ lookup('file', (pattern.path | dirname) + '/setup.yml') | from_yaml }}"
 
   tasks:
     - name: Check if required variables are defined
@@ -42,7 +23,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         organization: "{{ aap_organization | default('Default') }}"
-      loop: "{{ labels }}"
+      loop: "{{ controller_labels }}"
 
     - name: Create projects
       ansible.controller.project:
@@ -55,7 +36,7 @@
         scm_type: "{{ item.scm_type }}"
         scm_url: "{{ item.scm_url }}"
         state: "present"
-      loop: "{{ projects }}"
+      loop: "{{ controller_projects }}"
 
     - name: Create job templates
       ansible.controller.job_template:
@@ -75,4 +56,4 @@
         ask_credential_on_launch: true
         ask_labels_on_launch: true
         ask_job_type_on_launch: true
-      loop: "{{ templates }}"
+      loop: "{{ controller_templates }}"
