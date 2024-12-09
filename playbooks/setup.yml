@@ -1,17 +1,13 @@
 ---
-- name: Create job templates for playbooks
+- name: List available collections in EE
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Create job templates
-      ansible.tower.tower_job_template:
-        name: "{{ item.name }}"
-        description: "{{ item.description }}"
-        organization: "{{ item.organization }}"
-        inventory: "{{ item.inventory }}"
-        project: "{{ item.project }}"
-        playbook: "{{ item.playbook }}"
-        credential: "{{ item.credential }}"
-        job_type: "run"
-        state: "present"
-      loop: "{{ templates }}"
+    - name: List installed collections
+      command: ansible-galaxy collection list
+      register: collections_output
+      changed_when: false
+
+    - name: Show installed collections
+      debug:
+        msg: "{{ collections_output.stdout }}"
