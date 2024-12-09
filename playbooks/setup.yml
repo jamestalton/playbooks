@@ -33,6 +33,7 @@
               question_description: "Select the instance type"
               question_type: "multiplechoice"
               type: "multiplechoice"
+              variable: "instance_type"
               required: true
               min: 1
               max: 1
@@ -45,20 +46,6 @@
                   description: "t2.medium"
                 - name: "t2.large"
                   description: "t2.large"
-            - question_name: "instance_count"
-              question_description: "Enter the number of instances"
-              question_type: "integer"
-              type: "integer"
-              required: true
-              min: 1
-              max: 10
-            - question_name: "instance_name"
-              question_description: "Enter the instance name"
-              question_type: "text"
-              type: "text"
-              required: true
-              min: 1
-              max: 50
 
   tasks:
     - name: Check if required variables are defined
