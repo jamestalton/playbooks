@@ -15,7 +15,7 @@
       - name: "AWS Create EC2 Instance"
         description: "Description for Template 1"
         organization: "Default"
-        project: "AWS Validate Conten"
+        project: "AWS Validate Content"
         playbook: "extensions/patternf/configure_ec2/playbooks/create_ec2_instance.yml"
 
   tasks:
