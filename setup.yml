@@ -23,7 +23,7 @@
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
-        survey_file: "/extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
+        survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
         # survey_spec:
         #   name: "AWS Create EC2 Instance"
         #   description: "Description for Survey 1"
