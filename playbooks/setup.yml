@@ -5,11 +5,11 @@
 
   vars:
     projects:
-      - name: "Project 1"
-        description: "Description for Project 1"
+      - name: "cloud.aws_ops Validated Content"
+        description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         organization: "Default"
         scm_type: "git"
-        scm_url: "http://git.example.com/project1.git"
+        scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
 
     templates:
       - name: "Template 1"
