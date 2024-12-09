@@ -71,6 +71,18 @@
         state: "present"
       loop: "{{ projects }}"
 
+    - name: Download the survey file from GitHub
+      uri:
+        url: "{{ item.survey_url }}"
+        dest: "/tmp/create_ec2_instance.yml"
+      register: download_survey
+      when: item.survey_enabled | default(false)
+
+    - name: Load survey spec from file
+      set_fact:
+        survey_spec: "{{ lookup('file', '/tmp/create_ec2_instance.yml') | from_yaml }}"
+      when: download_survey is success
+
     - name: Create job templates
       ansible.controller.job_template:
         controller_host: "{{ aap_url }}"
@@ -84,7 +96,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ lookup('file', item.survey_file) | from_yaml }}"
+        survey_spec: "{{ survey_spec }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
