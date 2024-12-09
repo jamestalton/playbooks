@@ -2,25 +2,43 @@
 - name: Create job templates for playbooks
   hosts: localhost
   gather_facts: false
+
   vars:
+    projects:
+      - name: "Project 1"
+        description: "Description for Project 1"
+        organization: "Default"
+        scm_type: "git"
+        scm_url: "http://git.example.com/project1.git"
+
     templates:
       - name: "Template 1"
         description: "Description for Template 1"
-        organization: "Org 1"
+        organization: "Default"
         inventory: "Inventory 1"
         project: "Project 1"
         playbook: "playbook1.yml"
         credential: "Credential 1"
-      - name: "Template 2"
-        description: "Description for Template 2"
-        organization: "Org 2"
-        inventory: "Inventory 2"
-        project: "Project 2"
-        playbook: "playbook2.yml"
-        credential: "Credential 2"
+
   tasks:
+    - name: Create projects
+      ansible.controller.project:
+        url: "{{ aap_url }}/api/controller/v2/projects/"
+        headers:
+          Authorization: "Bearer {{ aap_token }}"
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+        organization: "{{ item.organization }}"
+        scm_type: "{{ item.scm_type }}"
+        scm_url: "{{ item.scm_url }}"
+        state: "present"
+      loop: "{{ projects }}"
+
     - name: Create job templates
       ansible.controller.job_template:
+        url: "{{ aap_url }}/api/controller/v2/job_templates/"
+        headers:
+          Authorization: "Bearer {{ aap_token }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
