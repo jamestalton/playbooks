@@ -3,12 +3,8 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    - name: Include the controller collection
-      ansible.builtin.include_role:
-        name: ansible.controller
-
     - name: Create job templates
-      ansible.controller.controller_job_template:
+      job_template:
         name: "{{ item.name }}"
         description: "{{ item.description }}"
         organization: "{{ item.organization }}"
