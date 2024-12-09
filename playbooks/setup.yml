@@ -17,8 +17,18 @@
         organization: "Default"
         project: "AWS Validate Content"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
+        labels: "aws,ec2,instance"
 
   tasks:
+    - name: Check if required variables are defined
+      assert:
+        that:
+          - aap_url is defined
+          - aap_username is defined
+          - aap_password is defined
+        fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
+        success_msg: "All required variables are defined."
+
     - name: Create projects
       ansible.controller.project:
         controller_host: "{{ aap_url }}"
@@ -43,8 +53,9 @@
         project: "{{ item.project }}"
         playbook: "{{ item.playbook }}"
         job_type: "run"
-        state: "present"
+        labels: "{{ item.labels }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
-
+        ask_labels_on_launch: true
+        ask_job_type_on_launch: true
       loop: "{{ templates }}"
