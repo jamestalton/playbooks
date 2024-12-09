@@ -49,7 +49,6 @@
           - aap_url is defined
           - aap_username is defined
           - aap_password is defined
-          - aap_organization
         fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
         success_msg: "All required variables are defined."
 
