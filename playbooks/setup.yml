@@ -24,6 +24,38 @@
         project: "AWS Validate Content"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,instance"
+        survey_enabled: true
+        survey_spec:
+          name: "AWS Create EC2 Instance"
+          description: "Description for Survey 1"
+          spec:
+            - question_name: "instance_type"
+              question_description: "Select the instance type"
+              question_type: "multiplechoice"
+              required: true
+              min: 1
+              max: 1
+              choices:
+                - name: "t2.micro"
+                  description: "t2.micro"
+                - name: "t2.small"
+                  description: "t2.small"
+                - name: "t2.medium"
+                  description: "t2.medium"
+                - name: "t2.large"
+                  description: "t2.large"
+            - question_name: "instance_count"
+              question_description: "Enter the number of instances"
+              question_type: "integer"
+              required: true
+              min: 1
+              max: 10
+            - question_name: "instance_name"
+              question_description: "Enter the instance name"
+              question_type: "text"
+              required: true
+              min: 1
+              max: 50
 
   tasks:
     - name: Check if required variables are defined
@@ -69,6 +101,8 @@
         playbook: "{{ item.playbook }}"
         job_type: "run"
         labels: "{{ item.labels }}"
+        survey_enabled: "{{ item.survey_enabled }}"
+        survey_spec: "{{ item.survey_spec }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
