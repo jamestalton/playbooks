@@ -4,6 +4,11 @@
   gather_facts: false
 
   vars:
+    labels:
+      - name: "aws"
+      - name: "ec2"
+      - name: "instance"
+
     projects:
       - name: "AWS Validate Content"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
@@ -29,6 +34,15 @@
           - aap_password is defined
         fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
         success_msg: "All required variables are defined."
+
+    - name: Create labels
+      ansible.controller.label:
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
+        name: "{{ item.name }}"
+        organization: "Default"
+      loop: "{{ labels }}"
 
     - name: Create projects
       ansible.controller.project:
