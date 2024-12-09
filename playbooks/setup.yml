@@ -29,23 +29,17 @@
           name: "AWS Create EC2 Instance"
           description: "Description for Survey 1"
           spec:
-            - question_name: "instance_type"
-              question_description: "Select the instance type"
-              question_type: "multiplechoice"
+            - question_name: "Select the instance type"
+              # question_description: "Select the instance type"
               type: "multiplechoice"
               variable: "instance_type"
-              required: true
-              min: 1
-              max: 1
               choices:
-                - name: "t2.micro"
-                  description: "t2.micro"
-                - name: "t2.small"
-                  description: "t2.small"
-                - name: "t2.medium"
-                  description: "t2.medium"
-                - name: "t2.large"
-                  description: "t2.large"
+                - "t2.micro"
+                - "t2.small"
+                - "t2.medium"
+                - "t2.large"
+              default: "t2.micro"
+              required: true
 
   tasks:
     - name: Check if required variables are defined
