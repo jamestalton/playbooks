@@ -39,12 +39,16 @@
               required: true
 
   tasks:
-    - name: Create labels
+    - name: Check if required variables are defined
       assert:
         that:
           - aap_url is defined
           - aap_username is defined
           - aap_password is defined
+        fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
+        success_msg: "All required variables are defined."
+
+    - name: Create labels
       ansible.controller.label:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
@@ -54,11 +58,6 @@
       loop: "{{ labels }}"
 
     - name: Create projects
-      assert:
-        that:
-          - aap_url is defined
-          - aap_username is defined
-          - aap_password is defined
       ansible.controller.project:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
@@ -72,11 +71,6 @@
       loop: "{{ projects }}"
 
     - name: Create job templates
-      assert:
-        that:
-          - aap_url is defined
-          - aap_username is defined
-          - aap_password is defined
       ansible.controller.job_template:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
