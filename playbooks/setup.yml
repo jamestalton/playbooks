@@ -58,7 +58,7 @@
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
-        organization: "{{ aap_organization || 'Default' }}"
+        organization: "{{ aap_organization | default('Default') }}"
       loop: "{{ labels }}"
 
     - name: Create projects
@@ -68,7 +68,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
-        organization: "{{ aap_organization || 'Default' }}"
+        organization: "{{ aap_organization | default('Default') }}"
         scm_type: "{{ item.scm_type }}"
         scm_url: "{{ item.scm_url }}"
         state: "present"
@@ -81,7 +81,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         description: "{{ item.description }}"
-        organization: "{{ aap_organization || 'Default' }}"
+        organization: "{{ aap_organization | default('Default') }}"
         project: "{{ item.project }}"
         playbook: "{{ item.playbook }}"
         job_type: "run"
