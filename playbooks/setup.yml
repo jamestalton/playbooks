@@ -5,20 +5,20 @@
 
   vars:
     projects:
-      - name: "cloud.aws_ops Validated Content"
+      - name: "AWS Validate Content"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         organization: "Default"
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
 
     templates:
-      - name: "Template 1"
+      - name: "AWS Create EC2 Instance"
         description: "Description for Template 1"
         organization: "Default"
-        inventory: "Inventory 1"
-        project: "Project 1"
-        playbook: "playbook1.yml"
-        credential: "Credential 1"
+        project: "AWS Validate Conten"
+        playbook: "extensions/patternf/configure_ec2/playbooks/create_ec2_instance.yml"
+        ask_inventory_on_launch: true
+        ask_credential_on_launch: true
 
   tasks:
     - name: Create projects
