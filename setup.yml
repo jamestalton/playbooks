@@ -17,14 +17,14 @@
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/network.backup"
         scm_update_on_launch: true
-        id: backup
+        id: network.backup
         
       - name: "JTalton / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
-        id: aws_ops
+        id: cloud.aws_ops
         
     controller_templates:
       - name: "JTalton / Network Backup"
@@ -34,7 +34,7 @@
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
-        id: backup
+        id: network.backup
 
       - name: "JTalton / Network Restore"
         description: "TODO"
@@ -43,7 +43,7 @@
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
-        id: backup
+        id: network.backup
         
       - name: "JTalton / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
@@ -52,7 +52,7 @@
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
         survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
-        id: aws_ops
+        id: cloud.aws_ops
 
   tasks:
     - name: Check if required variables are defined
@@ -114,7 +114,7 @@
         description: "{{ item.description }}"
         organization: "{{ aap_organization | default('Default') }}"
         project: "{{ item.project }}"
-        playbook: "{{ item.playbook }}"
+        playbook: "{{ '/tmp/' ~ item.id ~ '/' ~item.playbook }}"
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
