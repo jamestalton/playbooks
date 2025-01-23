@@ -83,6 +83,14 @@
         validate_certs: false
       loop: "{{ controller_projects }}"
 
+    - name: Clone project locally to access survey files
+      git:
+        repo: "{{ item.scm_url }}"
+        dest: "/tmp/{{ item.name | regex_replace(' ', '_') }}"
+        force: yes
+      loop: "{{ controller_projects }}"
+      when: item.scm_type == "git"
+  
     - name: Create job templates
       ansible.controller.job_template:
         controller_host: "{{ aap_url }}"
@@ -96,7 +104,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ item.survey_file }}"
+        survey_spec: "{{ lookup('file', '/tmp/{{ item.project | regex_replace(' ', '_') }}/' ~ item.survey_file) | from_yaml }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
