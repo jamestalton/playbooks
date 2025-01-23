@@ -17,12 +17,14 @@
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/network.backup"
         scm_update_on_launch: true
+        id: backup
         
       - name: "JTalton / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
+        id: aws_ops
         
     controller_templates:
       - name: "JTalton / Network Backup"
@@ -32,6 +34,7 @@
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
+        id: backup
 
       - name: "JTalton / Network Restore"
         description: "TODO"
@@ -40,6 +43,7 @@
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
+        id: backup
         
       - name: "JTalton / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
@@ -48,6 +52,7 @@
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
         survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
+        id: aws_ops
 
   tasks:
     - name: Check if required variables are defined
@@ -86,7 +91,7 @@
     - name: Clone project locally to access survey files
       git:
         repo: "{{ item.scm_url }}"
-        dest: "/tmp/{{ item.name | replace(' ', '_') }}"
+        dest: "/tmp/{{ item.id }}"
         force: yes
       loop: "{{ controller_projects }}"
       when: item.scm_type == "git"
@@ -113,7 +118,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ lookup('file', '/tmp/' ~ (item.project | replace(' ', '_')) ~ '/' ~ item.survey_file) | from_yaml }}"
+        survey_spec: "{{ lookup('file', '/tmp/' ~ item.id ~ '/' ~ item.survey_file) | from_yaml }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
