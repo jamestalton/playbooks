@@ -31,7 +31,7 @@
         playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
-        survey_file: "extensions/patterns/backup/template_surveys/backup.yml"
+        survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
 
       - name: "JTalton / Network Restore"
         description: "TODO"
@@ -39,7 +39,7 @@
         playbook: "extensions/patterns/backup/playbooks/run_network_restore.yaml"
         labels: "network,backup"
         survey_enabled: true
-        survey_file: "extensions/patterns/restore/template_surveys/restore.yml"
+        survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
         
       - name: "JTalton / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
