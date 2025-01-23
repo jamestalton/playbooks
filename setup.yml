@@ -10,10 +10,11 @@
       - name: "cloud.aws_ops"
       - name: "network"
       - name: "backup"
+      - name: demo
 
     controller_projects:
       - name: "RH Community of Practice / Network Backup & Restore"
-        description: "todo"
+        description: "The Ansible Network Backup Validated Content provides a comprehensive solution for managing network backups and restores across supported network platforms. This validated content offers two key functionalities: backup and restore, each designed to be platform-agnostic and user-friendly."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/network.backup"
         scm_update_on_launch: true
@@ -134,3 +135,8 @@
         ask_job_type_on_launch: true
         validate_certs: false
       loop: "{{ controller_templates }}"
+
+    - name: Update demo template
+      name: Demo Job Template
+      description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
+      labels: demo
