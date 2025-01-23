@@ -29,14 +29,14 @@
     controller_templates:
       - name: "JTalton / Network Backup"
         description: "TODO"
-        project: "JTalton / AWS Operations"
+        project: "JTalton / Network Backup"
         playbook: "/extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
         id: network.backup
 
-      - name: "JTalton / Network Restore"
+      - name: "JTalton / Network Backup"
         description: "TODO"
         project: "JTalton / AWS Operations"
         playbook: "extensions/patterns/backup/playbooks/run_network_restore.yaml"
