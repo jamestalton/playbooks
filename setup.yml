@@ -42,6 +42,7 @@
         controller_password: "{{ aap_password }}"
         name: "{{ item.name }}"
         organization: "{{ aap_organization | default('Default') }}"
+        validate_certs: false
       loop: "{{ controller_labels }}"
 
     - name: Create projects
@@ -55,6 +56,7 @@
         scm_type: "{{ item.scm_type }}"
         scm_url: "{{ item.scm_url }}"
         state: "present"
+        validate_certs: false
       loop: "{{ controller_projects }}"
 
     - name: Create job templates
@@ -75,4 +77,5 @@
         ask_credential_on_launch: true
         ask_labels_on_launch: true
         ask_job_type_on_launch: true
+        validate_certs: false
       loop: "{{ controller_templates }}"
