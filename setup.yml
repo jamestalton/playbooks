@@ -31,7 +31,7 @@
         playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
-        survey_file: "extensions/patterns/backup/template_surveys/restore.yml"
+        survey_file: "extensions/patterns/backup/template_surveys/backup.yml"
 
       - name: "JTalton / Network Restore"
         description: "TODO"
