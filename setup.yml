@@ -12,14 +12,14 @@
       - name: "backup"
 
     controller_projects:
-      - name: "JTalton / Network Backup"
+      - name: "RH Community of Practice / Network Backup"
         description: "todo"
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/network.backup"
         scm_update_on_launch: true
         id: network.backup
         
-      - name: "JTalton / AWS Operations"
+      - name: "RH Community of Practice / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
@@ -27,27 +27,27 @@
         id: cloud.aws_ops
         
     controller_templates:
-      - name: "JTalton / Network Backup"
+      - name: "RH Community of Practice / Network Restore"
         description: "TODO"
-        project: "JTalton / Network Backup"
+        project: "RH Community of Practice / Network Backup"
         playbook: "/extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
         id: network.backup
 
-      - name: "JTalton / Network Backup"
+      - name: "RH Community of Practice / Network Restore"
         description: "TODO"
-        project: "JTalton / AWS Operations"
+        project: "RH Community of Practice / Network Backup"
         playbook: "extensions/patterns/backup/playbooks/run_network_restore.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
         id: network.backup
         
-      - name: "JTalton / Create AWS EC2 Instance"
+      - name: "RH Community of Practice / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
-        project: "JTalton / AWS Operations"
+        project: "RH Community of Practice / AWS Operations"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
         labels: "aws,ec2,cloud.aws_ops"
         survey_enabled: true
