@@ -30,7 +30,7 @@
       - name: "RH Community of Practice / Network Restore"
         description: "TODO"
         project: "RH Community of Practice / Network Backup"
-        playbook: "/extensions/patterns/backup/playbooks/run_network_backup.yaml"
+        playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
@@ -39,7 +39,7 @@
       - name: "RH Community of Practice / Network Restore"
         description: "TODO"
         project: "RH Community of Practice / Network Backup"
-        playbook: "extensions/patterns/backup/playbooks/run_network_restore.yaml"
+        playbook: "extensions/patterns/restore/playbooks/run_network_restore.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
@@ -54,6 +54,15 @@
         survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
         id: cloud.aws_ops
 
+      - name: "RH Community of Practice / Terminate AWS EC2 Instance"
+        description: "This job template creates an AWS EC2 instance and associated networking resources."
+        project: "RH Community of Practice / AWS Operations"
+        playbook: "extensions/patterns/configure_ec2/playbooks/terminate_ec2_instance.yml"
+        labels: "aws,ec2,cloud.aws_ops"
+        survey_enabled: true
+        survey_file: "extensions/patterns/configure_ec2/template_surveys/terminate_ec2_instance.yml"
+        id: cloud.aws_ops
+        
   tasks:
     - name: Check if required variables are defined
       assert:
