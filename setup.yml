@@ -30,8 +30,6 @@
         project: "JTalton / AWS Operations"
         playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
-        survey_enabled: true
-        survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
 
       - name: "JTalton / Network Restore"
         description: "TODO"
