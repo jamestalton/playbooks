@@ -96,7 +96,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ lookup('file', '/tmp/network.backup/' + item.survey_file) | from_yaml }}"
+        survey_spec: "{{ lookup('file', item.survey_file) }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
