@@ -90,6 +90,9 @@
         force: yes
       loop: "{{ controller_projects }}"
       when: item.scm_type == "git"
+
+    - name: List contents of the cloned project directory
+      command: ls -l /tmp/
   
     - name: Create job templates
       ansible.controller.job_template:
