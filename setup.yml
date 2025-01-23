@@ -137,6 +137,7 @@
       loop: "{{ controller_templates }}"
 
     - name: Update demo template
-      name: Demo Job Template
-      description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
-      labels: demo
+      ansible.controller.job_template:
+        name: Demo Job Template
+        description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
+        labels: demo
