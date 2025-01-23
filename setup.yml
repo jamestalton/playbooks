@@ -86,7 +86,7 @@
     - name: Clone project locally to access survey files
       git:
         repo: "{{ item.scm_url }}"
-        dest: "/tmp/{{ item.name | regex_replace(' ', '_') }}"
+        dest: "/tmp/{{ item.name | replace(' ', '_') }}"
         force: yes
       loop: "{{ controller_projects }}"
       when: item.scm_type == "git"
@@ -104,7 +104,7 @@
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ lookup('file', '/tmp/' ~ (item.project | regex_replace(' ', '_')) ~ '/' ~ item.survey_file) | from_yaml }}"
+        survey_spec: "{{ lookup('file', '/tmp/' ~ (item.project | replace(' ', '_')) ~ '/' ~ item.survey_file) | from_yaml }}"
         ask_inventory_on_launch: true
         ask_credential_on_launch: true
         ask_labels_on_launch: true
