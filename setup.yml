@@ -30,7 +30,7 @@
       - name: "JTalton / Network Backup"
         description: "TODO"
         project: "JTalton / AWS Operations"
-        playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
+        playbook: "/extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
@@ -114,7 +114,7 @@
         description: "{{ item.description }}"
         organization: "{{ aap_organization | default('Default') }}"
         project: "{{ item.project }}"
-        playbook: "{{ '/tmp/' ~ item.id ~ '/' ~item.playbook }}"
+        playbook: "{{ item.playbook }}"
         job_type: "run"
         labels: "{{ item.labels }}"
         survey_enabled: "{{ item.survey_enabled }}"
