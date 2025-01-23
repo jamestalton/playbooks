@@ -10,7 +10,7 @@
       - name: "cloud.aws_ops"
       - name: "network"
       - name: "backup"
-      - name: demo
+      - name: "demo"
 
     controller_projects:
       - name: "RH Community of Practice / Network Backup & Restore"
