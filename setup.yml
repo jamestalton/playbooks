@@ -11,6 +11,7 @@
       - name: "network"
       - name: "backup"
       - name: "demo"
+      - name: "rhcop"
 
     controller_projects:
       - name: "RH Community of Practice / Network Backup & Restore"
@@ -145,3 +146,13 @@
         description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
         labels: demo
         validate_certs: false
+
+    - name: Update RH COP Seed
+      ansible.controller.job_template:
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
+        name: RH Community of Practice / Setup Patterns
+        description: "This setup automates the deployment and configuration of Red Hat Community of Practice (RH COP) templates, enabling consistent and efficient pattern setups for various infrastructure and application management tasks. It simplifies the process of leveraging RH COP's best practices and tools for automation."
+        labels: rhcop
+        validate_certs: false        
