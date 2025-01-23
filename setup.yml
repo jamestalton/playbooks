@@ -138,6 +138,9 @@
 
     - name: Update demo template
       ansible.controller.job_template:
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
         name: Demo Job Template
         description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
         labels: demo
