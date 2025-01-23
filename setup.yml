@@ -8,15 +8,39 @@
       - name: "aws"
       - name: "ec2"
       - name: "cloud.aws_ops"
+      - name: "network"
+      - name: "backup"
 
     controller_projects:
+      - name: "JTalton / Network Backup"
+        description: "todo"
+        scm_type: "git"
+        scm_url: "https://github.com/redhat-cop/network.backup"
+        scm_update_on_launch: true
+        
       - name: "JTalton / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
-
+        
     controller_templates:
+      - name: "JTalton / Network Backup"
+        description: "TODO"
+        project: "JTalton / AWS Operations"
+        playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
+        labels: "network,backup"
+        survey_enabled: true
+        survey_file: "extensions/patterns/backup/template_surveys/restore.yml"
+
+      - name: "JTalton / Network Restore"
+        description: "TODO"
+        project: "JTalton / AWS Operations"
+        playbook: "extensions/patterns/backup/playbooks/run_network_restore.yaml"
+        labels: "network,backup"
+        survey_enabled: true
+        survey_file: "extensions/patterns/restore/template_surveys/restore.yml"
+        
       - name: "JTalton / Create AWS EC2 Instance"
         description: "This job template creates an AWS EC2 instance and associated networking resources."
         project: "JTalton / AWS Operations"
