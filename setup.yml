@@ -5,11 +5,6 @@
 
   vars:
     controller_labels:
-      - name: "aws"
-      - name: "ec2"
-      - name: "cloud.aws_ops"
-      - name: "network"
-      - name: "backup"
       - name: "demo"
       - name: "rhcop"
 
@@ -84,6 +79,16 @@
         organization: "{{ aap_organization | default('Default') }}"
         validate_certs: false
       loop: "{{ controller_labels }}"
+
+    - name: Create labels from job templates
+      ansible.controller.label:
+        controller_host: "{{ aap_url }}"
+        controller_username: "{{ aap_username }}"
+        controller_password: "{{ aap_password }}"
+        name: "{{ item }}"
+        organization: "{{ aap_organization | default('Default') }}"
+        validate_certs: false
+      loop: "{{ controller_templates | map(attribute='labels') | join(',') | split(',') | unique }}"
 
     - name: Create projects
       ansible.controller.project:
