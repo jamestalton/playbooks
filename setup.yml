@@ -28,7 +28,7 @@
         description: "This job template executes the run_network_backup.yaml playbook to automate the backup of network configurations. It captures essential network settings and securely stores them, ensuring that they can be restored if needed. The job template can be scheduled for regular backups to maintain up-to-date network configurations."
         project: "RH Community of Practice / Network Backup & Restore"
         playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
-        labels: "network,backup"
+        labels: "network,backup,cop,network.backup"
         survey_enabled: true
         survey_file: "extensions/patterns/backup/template_surveys/backup.yaml"
         id: network.backup
@@ -37,7 +37,7 @@
         description: "This job template runs the run_network_restore.yaml playbook to restore previously backed-up network configurations. It ensures that network settings are accurately re-applied, enabling recovery from failures or replication of network environments. The job template can be triggered to restore network configurations as needed."
         project: "RH Community of Practice / Network Backup & Restore"
         playbook: "extensions/patterns/restore/playbooks/run_network_restore.yaml"
-        labels: "network,backup"
+        labels: "network,backup,cop,network.backup"
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
         id: network.backup
@@ -46,7 +46,7 @@
         description: "This job template runs the create_ec2_instance.yml playbook to automate the provisioning of EC2 instances on AWS. It simplifies the process of creating and configuring EC2 instances by capturing necessary parameters through a survey, ensuring a consistent and repeatable instance creation process."
         project: "RH Community of Practice / AWS Operations"
         playbook: "extensions/patterns/configure_ec2/playbooks/create_ec2_instance.yml"
-        labels: "aws,ec2,cloud.aws_ops"
+        labels: "aws,ec2,cloud.aws_ops,cop"
         survey_enabled: true
         survey_file: "extensions/patterns/configure_ec2/template_surveys/create_ec2_instance.yml"
         id: cloud.aws_ops
@@ -55,7 +55,7 @@
         description: "This job template runs the terminate_ec2_instance.yml playbook to automate the safe termination of EC2 instances on AWS. It ensures that instances are properly terminated, releasing associated resources, and preventing unnecessary costs. The job template can be executed to clean up EC2 instances as needed."
         project: "RH Community of Practice / AWS Operations"
         playbook: "extensions/patterns/configure_ec2/playbooks/terminate_ec2_instance.yml"
-        labels: "aws,ec2,cloud.aws_ops"
+        labels: "aws,ec2,cloud.aws_ops,cop"
         survey_enabled: true
         survey_file: "extensions/patterns/configure_ec2/template_surveys/terminate_ec2_instance.yml"
         id: cloud.aws_ops
