@@ -93,6 +93,12 @@
 
     - name: List contents of the cloned project directory
       command: ls -l /tmp/
+      register: ls_output
+
+    - name: Display directory contents
+      debug:
+        var: ls_output
+      when: ls_output is defined
   
     - name: Create job templates
       ansible.controller.job_template:
