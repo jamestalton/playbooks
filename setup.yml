@@ -12,7 +12,7 @@
       - name: "backup"
 
     controller_projects:
-      - name: "RH Community of Practice / Network Backup"
+      - name: "RH Community of Practice / Network Backup & Restore"
         description: "todo"
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/network.backup"
@@ -27,9 +27,9 @@
         id: cloud.aws_ops
         
     controller_templates:
-      - name: "RH Community of Practice / Network Restore"
+      - name: "RH Community of Practice / Network Backup"
         description: "TODO"
-        project: "RH Community of Practice / Network Backup"
+        project: "RH Community of Practice / Network Backup & Restore"
         playbook: "extensions/patterns/backup/playbooks/run_network_backup.yaml"
         labels: "network,backup"
         survey_enabled: true
@@ -38,7 +38,7 @@
 
       - name: "RH Community of Practice / Network Restore"
         description: "TODO"
-        project: "RH Community of Practice / Network Backup"
+        project: "RH Community of Practice / Network Backup & Restore"
         playbook: "extensions/patterns/restore/playbooks/run_network_restore.yaml"
         labels: "network,backup"
         survey_enabled: true
