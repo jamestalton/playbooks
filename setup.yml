@@ -152,7 +152,7 @@
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
-        name: RH Community of Practice / Setup Patterns
+        name: RH Community of Practice / Setup Automation Patterns
         description: "This setup automates the deployment and configuration of Red Hat Community of Practice (RH COP) templates, enabling consistent and efficient pattern setups for various infrastructure and application management tasks. It simplifies the process of leveraging RH COP's best practices and tools for automation."
         labels: rhcop
         validate_certs: false        
