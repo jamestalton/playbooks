@@ -1,5 +1,5 @@
 ---
-- name: Create job templates for playbooks
+- name: Configure AAP using infra.aap_configuration
   hosts: localhost
   gather_facts: false
 
@@ -15,14 +15,14 @@
         scm_url: "https://github.com/redhat-cop/network.backup"
         scm_update_on_launch: true
         id: network.backup
-        
+
       - name: "Red Hat Community of Practice / AWS Operations"
         description: "This collection is curated to provide users with a robust set of roles, playbooks, and rulebooks that simplify and streamline various AWS operations."
         scm_type: "git"
         scm_url: "https://github.com/redhat-cop/cloud.aws_ops"
         scm_update_on_launch: true
         id: cloud.aws_ops
-        
+
     controller_templates:
       - name: "Red Hat Community of Practice / Network Backup"
         description: "This job template executes the run_network_backup.yaml playbook to automate the backup of network configurations. It captures essential network settings and securely stores them, ensuring that they can be restored if needed. The job template can be scheduled for regular backups to maintain up-to-date network configurations."
@@ -41,7 +41,7 @@
         survey_enabled: true
         survey_file: "extensions/patterns/restore/template_surveys/restore.yaml"
         id: network.backup
-        
+
       - name: "Red Hat Community of Practice / Create AWS EC2 Instance"
         description: "This job template runs the create_ec2_instance.yml playbook to automate the provisioning of EC2 instances on AWS. It simplifies the process of creating and configuring EC2 instances by capturing necessary parameters through a survey, ensuring a consistent and repeatable instance creation process."
         project: "Red Hat Community of Practice / AWS Operations"
@@ -59,96 +59,14 @@
         survey_enabled: true
         survey_file: "extensions/patterns/configure_ec2/template_surveys/terminate_ec2_instance.yml"
         id: cloud.aws_ops
-        
+
   tasks:
-    - name: Check if required variables are defined
-      assert:
-        that:
-          - aap_url is defined
-          - aap_username is defined
-          - aap_password is defined
-        fail_msg: "Required variables are missing! aap_url, aap_username, and aap_password must be defined."
-        success_msg: "All required variables are defined."
-
-    - name: Create labels
-      ansible.controller.label:
+    - name: Configure AAP
+      infra.aap_configuration:
         controller_host: "{{ aap_url }}"
         controller_username: "{{ aap_username }}"
         controller_password: "{{ aap_password }}"
-        name: "{{ item.name }}"
-        organization: "{{ aap_organization | default('Default') }}"
+        labels: "{{ controller_labels }}"
+        projects: "{{ controller_projects }}"
+        job_templates: "{{ controller_templates }}"
         validate_certs: false
-      loop: "{{ controller_labels }}"
-
-    - name: Create labels from job templates
-      ansible.controller.label:
-        controller_host: "{{ aap_url }}"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        name: "{{ item }}"
-        organization: "{{ aap_organization | default('Default') }}"
-        validate_certs: false
-      loop: "{{ controller_templates | map(attribute='labels') | join(',') | split(',') | unique }}"
-
-    - name: Create projects
-      ansible.controller.project:
-        controller_host: "{{ aap_url }}"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        name: "{{ item.name }}"
-        description: "{{ item.description }}"
-        organization: "{{ aap_organization | default('Default') }}"
-        scm_type: "{{ item.scm_type }}"
-        scm_url: "{{ item.scm_url }}"
-        state: "present"
-        validate_certs: false
-      loop: "{{ controller_projects }}"
-
-    - name: Clone project locally to access survey files
-      git:
-        repo: "{{ item.scm_url }}"
-        dest: "/tmp/{{ item.id }}"
-        force: yes
-      loop: "{{ controller_projects }}"
-      when: item.scm_type == "git"
-  
-    - name: Create job templates
-      ansible.controller.job_template:
-        controller_host: "{{ aap_url }}"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        name: "{{ item.name }}"
-        description: "{{ item.description }}"
-        organization: "{{ aap_organization | default('Default') }}"
-        project: "{{ item.project }}"
-        playbook: "{{ item.playbook }}"
-        job_type: "run"
-        labels: "{{ item.labels }}"
-        survey_enabled: "{{ item.survey_enabled }}"
-        survey_spec: "{{ lookup('file', '/tmp/' ~ item.id ~ '/' ~ item.survey_file) | from_yaml }}"
-        ask_inventory_on_launch: true
-        ask_credential_on_launch: true
-        ask_labels_on_launch: true
-        ask_job_type_on_launch: true
-        validate_certs: false
-      loop: "{{ controller_templates }}"
-
-    - name: Update demo template
-      ansible.controller.job_template:
-        controller_host: "{{ aap_url }}"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        name: Demo Job Template
-        description: This template serves as a quick introduction to how Ansible Automation works. It runs a basic automation task, allowing you to see Ansible in action without needing to set up anything complex. You can use this template to understand how job templates operate and test how Ansible interacts with systems in a simple, safe environment.
-        labels: demo
-        validate_certs: false
-
-    - name: Update RH COP Seed
-      ansible.controller.job_template:
-        controller_host: "{{ aap_url }}"
-        controller_username: "{{ aap_username }}"
-        controller_password: "{{ aap_password }}"
-        name: Red Hat Community of Practice / Setup Automation Patterns
-        description: This setup automates the deployment and configuration of Red Hat Community of Practice (RH COP) templates, enabling consistent and efficient pattern setups for various infrastructure and application management tasks. It simplifies the process of leveraging RH COP best practices and tools for automation.
-        labels: rhcop
-        validate_certs: false        
